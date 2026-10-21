@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Weather Data Analytics</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+<header class="header">
+    <div>
+        <h1>Weather Analytics</h1>
+        <p>Weather data collection, analysis and visualization</p>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="search-section">
+        <h2>Explore Weather Data</h2>
+
+        <form method="POST" action="/">
+            <input
+                type="text"
+                name="city"
+                placeholder="Enter city, e.g. Kochi"
+                value="{{ city }}"
+                maxlength="100"
+                required
+            >
+
+            <button type="submit">Analyze Weather</button>
+        </form>
+
+        <p class="help-text">
+            Collect hourly weather measurements and analyze
+            temperature, humidity, rainfall and wind speed.
+        </p>
+    </section>
+
+    {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    {% if stats %}
+
+        <section class="location-heading">
+            <div>
+                <h2>{{ city }}</h2>
+                <p>Weather analytics overview</p>
+            </div>
+
+            <a href="{{ url_for('download_csv') }}"
+               class="download-button">
+                Download CSV
+            </a>
+        </section>
+
+        <section class="cards">
+
+            <div class="card">
+                <h3>Average Temperature</h3>
+                <p>{{ stats.avg_temp }} °C</p>
+            </div>
+
+            <div class="card">
+                <h3>Maximum Temperature</h3>
+                <p>{{ stats.max_temp }} °C</p>
+            </div>
+
+            <div class="card">
+                <h3>Minimum Temperature</h3>
+                <p>{{ stats.min_temp }} °C</p>
+            </div>
+
+            <div class="card">
+                <h3>Average Humidity</h3>
+                <p>{{ stats.avg_humidity }} %</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Precipitation</h3>
+                <p>{{ stats.total_rain }} mm</p>
+            </div>
+
+            <div class="card">
+                <h3>Average Wind Speed</h3>
+                <p>{{ stats.avg_wind }} km/h</p>
+            </div>
+
+        </section>
+
+        <section class="analysis-section">
+            <h2>Weather Visualizations</h2>
+
+            <div class="chart-grid">
+
+                {% if charts.temperature %}
+                <div class="chart-card">
+                    <h3>Temperature Trend</h3>
+
+                    <img
+                        src="data:image/png;base64,{{ charts.temperature }}"
+                        alt="Hourly temperature chart"
+                    >
+                </div>
+                {% endif %}
+
+                {% if charts.humidity %}
+                <div class="chart-card">
+                    <h3>Humidity Trend</h3>
+
+                    <img
+                        src="data:image/png;base64,{{ charts.humidity }}"
+                        alt="Hourly humidity chart"
+                    >
+                </div>
+                {% endif %}
+
+                {% if charts.rainfall %}
+                <div class="chart-card">
+                    <h3>Rainfall Analysis</h3>
+
+                    <img
+                        src="data:image/png;base64,{{ charts.rainfall }}"
+                        alt="Hourly precipitation chart"
+                    >
+                </div>
+                {% endif %}
+
+            </div>
+        </section>
+
+        <section class="table-section">
+            <h2>Latest Weather Records</h2>
+
+            <p>
+                Displaying up to 24 of the latest saved records
+                for {{ city }}.
+            </p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Temperature (°C)</th>
+                            <th>Humidity (%)</th>
+                            <th>Precipitation (mm)</th>
+                            <th>Wind Speed (km/h)</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for row in records %}
+                        <tr>
+                            <td>{{ row.time }}</td>
+                            <td>{{ row.temperature }}</td>
+                            <td>{{ row.humidity }}</td>
+                            <td>{{ row.rainfall }}</td>
+                            <td>{{ row.wind_speed }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    {% else %}
+
+        <section class="welcome">
+            <h2>Your Weather Dashboard</h2>
+
+            <p>
+                Enter a city above to collect weather data,
+                calculate statistics, visualize trends and
+                download your dataset.
+            </p>
+
+            <div class="welcome-grid">
+                <div>
+                    <h3>Data Collection</h3>
+                    <p>Fetch hourly weather measurements through an API.</p>
+                </div>
+
+                <div>
+                    <h3>Data Analysis</h3>
+                    <p>Calculate temperature, humidity and rainfall statistics.</p>
+                </div>
+
+                <div>
+                    <h3>Visualization</h3>
+                    <p>Explore weather trends through charts.</p>
+                </div>
+            </div>
+        </section>
+
+    {% endif %}
+
+</main>
+
+<footer>
+    <p>Weather Data Analytics | Built with Python and Flask</p>
+    <p>Weather data provided by Open-Meteo.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# IDE settings
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Generated weather dataset
+data/*.csv
+
+# Trained machine learning models
+models/*.joblib
+
+# Python test and coverage files
+.pytest_cache/
+.coverage
+htmlcov/

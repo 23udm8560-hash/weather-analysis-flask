@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Temperature Prediction</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+<header class="header">
+    <h1>Weather ML Prediction</h1>
+    <p>Machine learning powered temperature estimation</p>
+</header>
+
+<main class="container">
+
+    <section class="search-section">
+        <h2>Prediction Results</h2>
+
+        <p>
+            <strong>City:</strong> {{ city }}
+        </p>
+
+        <p>
+            <strong>Model:</strong> {{ model_name }}
+        </p>
+
+        <p>
+            <strong>Prediction timestamp:</strong>
+            {{ prediction_time }}
+        </p>
+    </section>
+
+    <section class="cards">
+
+        <div class="card">
+            <h3>Predicted Temperature</h3>
+
+            <p>{{ prediction }} °C</p>
+        </div>
+
+        <div class="card">
+            <h3>Previous Temperature</h3>
+
+            <p>{{ previous_temperature }} °C</p>
+        </div>
+
+    </section>
+
+    <section class="welcome">
+        <h2>How the prediction works</h2>
+
+        <p>
+            The Random Forest model uses previous weather
+            measurements and calendar features to estimate
+            the temperature for the next hourly timestamp.
+        </p>
+
+        <p>
+            This is an experimental prediction based on the
+            collected dataset, not an official weather forecast.
+        </p>
+
+        <br>
+
+        <a href="{{ url_for('index') }}"
+           class="download-button">
+            Back to Weather Dashboard
+        </a>
+    </section>
+
+</main>
+
+<footer>
+    <p>Weather Data Analytics | Machine Learning</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+    "model": "Random Forest Regression",
+    "target": "Next available hourly temperature (C)",
+    "training_records": 611,
+    "testing_records": 153,
+    "cities": [
+        "Ern\u0101kulam",
+        "Kannur",
+        "Kochi",
+        "Kollam"
+    ],
+    "mae": 0.52,
+    "rmse": 0.701,
+    "r2": 0.926,
+    "previous_temperature_baseline_mae": 0.617
+}
